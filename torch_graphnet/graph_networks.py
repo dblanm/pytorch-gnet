@@ -38,12 +38,12 @@ class EdgeModel(nn.Module):
         Returns: updated edges [E]
 
         """
-        if self.use_context and _context is None:
+        if self.use_context and context is None:
             raise ValueError("EdgeModel use_globals set to True and globals not provided")
         x = [edge_attr]
         if self.use_receiver_nodes: x.append(receiver_nodes_to_edges(nodes, edge_index[1, :]))
         if self.use_sender_nodes: x.append(sender_nodes_to_edges(nodes, edge_index[0, :]))
-        if self.use_context: x.append(context_to_edges(edge_attr, _context))
+        if self.use_context: x.append(context_to_edges(edge_attr, context))
 
         x = torch.cat(x, dim=-1)
 
